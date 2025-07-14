@@ -14,13 +14,13 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(EmployeeNotFoundException.class)
-    public ResponseEntity<String> employeeNotFoundException(EmployeeNotFoundException ex){
+    public ResponseEntity<String> employeeNotFoundException(EmployeeNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
 
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String,Object>>nameValidationException(MethodArgumentNotValidException ex){
+    public ResponseEntity<Map<String, Object>> nameValidationException(MethodArgumentNotValidException ex) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.BAD_REQUEST.value());

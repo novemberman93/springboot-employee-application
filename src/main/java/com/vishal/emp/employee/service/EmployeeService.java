@@ -42,9 +42,10 @@ public class EmployeeService {
     public void deleteEmpByid(Long id) {
         empRepository.deleteById(id);
     }
+
     public Employee updateEmp(Long id, Employee emp) {
         Employee existing = empRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
-        if(existing!=null){
+        if (existing != null) {
             existing.setName(emp.getName());
             existing.setDepartment(emp.getDepartment());
             existing.setSalary(emp.getSalary());
@@ -56,11 +57,11 @@ public class EmployeeService {
 
     public Employee patchEmp(Long id, Map<String, Object> updates) {
         Employee existing = empRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
-        updates.forEach((key,value)->{
-            switch (key){
-                case "name"-> existing.setName((String) value);
-                case "department"-> existing.setDepartment((String) value);
-                case "salary"->existing.setSalary((long) Integer.parseInt(value.toString()));
+        updates.forEach((key, value) -> {
+            switch (key) {
+                case "name" -> existing.setName((String) value);
+                case "department" -> existing.setDepartment((String) value);
+                case "salary" -> existing.setSalary((long) Integer.parseInt(value.toString()));
             }
         });
         return empRepository.save(existing);
