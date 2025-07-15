@@ -20,7 +20,7 @@ public class EmployeeService {
     private EmployeeRepository empRepository;//m1
 
     public Employee getByEmpId(Long id) {
-        return empRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);//nf1
+        return empRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
 
     }
 
