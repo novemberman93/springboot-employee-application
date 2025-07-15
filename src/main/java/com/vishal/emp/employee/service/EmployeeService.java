@@ -26,7 +26,7 @@ public class EmployeeService {
 
     @Transactional
     public Employee saveEmp(Employee emp) {
-        return empRepository.save(emp);
+        return empRepository.save(emp);//nf2
     }
 
     @Transactional
