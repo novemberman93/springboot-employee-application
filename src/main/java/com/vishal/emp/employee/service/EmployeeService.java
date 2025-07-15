@@ -17,8 +17,8 @@ import java.util.Map;
 @Service
 public class EmployeeService {
     @Autowired
-    private EmployeeRepository empRepository;// adding comment for testing cherry picking
-    //adding second commit
+    private EmployeeRepository empRepository;
+
     public Employee getByEmpId(Long id) {
         return empRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
 
