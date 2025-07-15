@@ -17,7 +17,7 @@ import java.util.Map;
 @Service
 public class EmployeeService {
     @Autowired
-    private EmployeeRepository empRepository;
+    private EmployeeRepository empRepository;//m1
 
     public Employee getByEmpId(Long id) {
         return empRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);//nf1
