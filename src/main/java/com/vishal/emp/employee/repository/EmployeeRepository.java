@@ -17,4 +17,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     @Modifying
     @Query("update Employee emp  set emp.salary = :salary  where emp.id = :id")
     int incrementSalary(@Param("id") Long id, @Param("salary") Long salary);
+
+    @Query(value = "select * from employee order by salary DESC OFFSET 1  LIMIT 1", nativeQuery = true)
+    List<Employee> getSecondHighestSalary();
 }
