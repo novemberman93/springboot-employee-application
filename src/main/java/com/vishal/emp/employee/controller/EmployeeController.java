@@ -74,4 +74,10 @@ public class EmployeeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @GetMapping("/secondHighestSalary")
+    public ResponseEntity<List<Employee>>getSecondHighestSalary(){
+        List<Employee>empList = empService.getSecondHighestSalary();
+        return ResponseEntity.ok(empList);
+    }
 }

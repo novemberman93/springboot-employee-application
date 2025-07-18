@@ -81,4 +81,8 @@ public class EmployeeService {
             throw new RuntimeException("Salary update failed for id: " + id);
         }
     }
+
+    public List<Employee> getSecondHighestSalary() {
+        return empRepository.getSecondHighestSalary();
+    }
 }
