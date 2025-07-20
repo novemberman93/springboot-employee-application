@@ -80,4 +80,5 @@ public class EmployeeController {
         List<Employee>empList = empService.getSecondHighestSalary();
         return ResponseEntity.ok(empList);
     }
+
 }

@@ -19,6 +19,7 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository empRepository;
 
+    @Cacheable(value ="employees",key ="#id")
     public Employee getByEmpId(Long id) {
         return empRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
 
@@ -39,10 +40,12 @@ public class EmployeeService {
     }
 
     @Transactional
+    @CacheEvict(value ="employees",key ="#id")
     public void deleteEmpByid(Long id) {
         empRepository.deleteById(id);
     }
 
+    @CachePut(value ="employees",key ="#id")
     public Employee updateEmp(Long id, Employee emp) {
         Employee existing = empRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
         if (existing != null) {
@@ -85,4 +88,5 @@ public class EmployeeService {
     public List<Employee> getSecondHighestSalary() {
         return empRepository.getSecondHighestSalary();
     }
+
 }
