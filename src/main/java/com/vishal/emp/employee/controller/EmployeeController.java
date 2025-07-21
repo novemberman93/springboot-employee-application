@@ -93,6 +93,7 @@ public class EmployeeController {
         return ResponseEntity.ok(empList);
     }
 
+    // just a dummy call to external
     @GetMapping("/external")
     public String fetchExternalData() {
         return empService.getEmployeeData();
