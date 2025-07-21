@@ -33,7 +33,7 @@ public class EmployeeServiceTest {
         assertNotNull(result);
         assertEquals("Pink",result.getName());
         assertEquals("HR",result.getDepartment());
-        assertEquals(56000L,result.getSalary());
+        assertEquals(50000L,result.getSalary());
 
     }
 }

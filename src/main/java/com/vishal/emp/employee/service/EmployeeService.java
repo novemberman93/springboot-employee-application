@@ -3,12 +3,15 @@ package com.vishal.emp.employee.service;
 import com.vishal.emp.employee.entity.Employee;
 import com.vishal.emp.employee.exception.EmployeeNotFoundException;
 import com.vishal.emp.employee.repository.EmployeeRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,8 +38,8 @@ public class EmployeeService {
         return empRepository.saveAll(emps);
     }
 
-    public List<Employee> getAllEmps() {
-        return empRepository.findAll();
+    public Page<Employee> getAllEmps(Pageable pageable) {
+        return empRepository.findAll(pageable);
     }
 
     @Transactional
@@ -87,6 +90,19 @@ public class EmployeeService {
 
     public List<Employee> getSecondHighestSalary() {
         return empRepository.getSecondHighestSalary();
+    }
+
+    @Autowired
+    private ExternalEmployeeService externalEmployeeService;
+
+    @CircuitBreaker(name = "employeeCB", fallbackMethod = "fallbackForEmployee")
+    public String getEmployeeData() {
+        return externalEmployeeService.callExternalService();
+    }
+
+    // fallback method
+    public String fallbackForEmployee(Exception ex) {
+        return "Fallback response: Service unavailable";
     }
 
 }

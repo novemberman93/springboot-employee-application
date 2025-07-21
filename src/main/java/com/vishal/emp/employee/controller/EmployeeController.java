@@ -4,6 +4,10 @@ import com.vishal.emp.employee.entity.Employee;
 import com.vishal.emp.employee.service.EmployeeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -25,8 +29,16 @@ public class EmployeeController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Employee>> getAllEmployees() {
-        List<Employee> emps = empService.getAllEmps();
+    public ResponseEntity<Page<Employee>> getAllEmployees( @RequestParam(defaultValue = "0") int page,
+                                                           @RequestParam(defaultValue = "5") int size,
+                                                           @RequestParam(defaultValue = "id") String sortBy,
+                                                           @RequestParam(defaultValue = "asc") String sortDir) {
+
+        Sort sort = sortDir.equalsIgnoreCase("asc") ?
+                Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Page<Employee> emps = empService.getAllEmps(pageable);
         return ResponseEntity.status(HttpStatus.OK).body(emps);
     }
 
@@ -79,6 +91,11 @@ public class EmployeeController {
     public ResponseEntity<List<Employee>>getSecondHighestSalary(){
         List<Employee>empList = empService.getSecondHighestSalary();
         return ResponseEntity.ok(empList);
+    }
+
+    @GetMapping("/external")
+    public String fetchExternalData() {
+        return empService.getEmployeeData();
     }
 
 }
