@@ -6,6 +6,7 @@ import java.util.Random;
 
 @Service
 public class ExternalEmployeeService {
+    //just an external call to check working of circuit break pattern
 
     public String callExternalService() {
         // Simulate failure
