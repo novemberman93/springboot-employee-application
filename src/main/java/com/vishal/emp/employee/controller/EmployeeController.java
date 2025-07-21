@@ -94,7 +94,6 @@ public class EmployeeController {
     }
 
     // just a dummy call to external
-    //git merge comment 2 in main
     @GetMapping("/external")
     public String fetchExternalData() {
         return empService.getEmployeeData();
